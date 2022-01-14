@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>svae</h2>
+
+    <form action="/member/save" th:object="${member}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}"> <!--글로벌 오류-->
+            <p class="field-error" th:each="err: ${#fields.globalErrors()}" th:text="${err}">글로벌오류</p>
+        </div>
+
+        이메일: <input type="text" th:field="*{memberEmail}">
+        <p th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" th:errorclass="field-error"></p>
+
+        비밀번호:<input type="text" th:field="*{memberPassword}">
+        <p th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" th:errorclass="field-error"></p>
+
+        이름:<input type="text" th:field="*{memberName}">
+        <p th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" th:errorclass="field-error"></p>
+        <input type="submit" value="회원가입">
+    </form>
+</body>
+</html>

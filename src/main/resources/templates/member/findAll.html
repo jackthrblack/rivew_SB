@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function detail(memberId){
+            const reqUrl ="/member/"+memberId;
+
+            $.ajax({
+                type: "post",
+                url: reqUrl,
+                dataType: 'json',
+                success: function (result){
+                    let output = "";
+                    output += "<table>\n" +
+                        "    <thead>\n" +
+                        "        <tr>\n" +
+                        "            <th>번호</th>\n" +
+                        "            <th>이메일</th>\n" +
+                        "            <th>비밀번호</th>\n" +
+                        "            <th>이름</th>\n" +
+                        "        </tr>\n" +
+                        "    </thead>\n" +
+                        "    <tbody>\n" +
+                        "        <tr>\n" +
+                        "            <td>" + result.memberId + "</td>\n" +
+                        "            <td>" + result.memberEmail + "</td>\n" +
+                        "            <td>" + result.memberPassword + "</td>\n" +
+                        "            <td>" + result.memberName + "</td>\n" +
+                        "        </tr>\n" +
+                        "    </tbody>\n" +
+                        "</table>";
+                    document.getElementById("detail-view").innerHTML = output;
+                } ,
+                error: function (){
+                    alert('ajax 실패');
+                }
+            });
+        }
+
+        const delete2 = (memberId) => {
+            const reqUrl = "/member/"+memberId;
+
+            $.ajax({
+                type: 'delete',
+                url: reqUrl,
+                success: function (result){
+                    location.href="/member/";
+                },
+                errors: function (result){
+                    alert("우갸갸갸갸");
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+<h2>findAll</h2>
+<table>
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>이메일</th>
+            <th>비밀번호</th>
+            <th>이름</th>
+            <th>조회</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="member: ${memberList}">
+            <td th:text="${member.memberId}" id="memberId">번호</td>
+            <td th:text="${member.memberEmail}" >이메일</td>
+            <td th:text="${member.memberPassword}" >비밀번호</td>
+            <td th:text="${member.memberName}" >이름</td>
+            <td><a th:href="@{|/member/${member.memberId}|}">조회</a></td>
+            <td><button th:onclick="detail([[${member.memberId}]])">조회(아작)</button></td>
+            <td><a th:href="@{|/board/delete/${member.memberId}|}">삭제(겟)</a> </td>
+            <td><input type="button" th:onclick="delete2[[${member.memberId}]]">삭제(아작)</td>
+        </tr>
+
+    </tbody>
+
+</table>
+</body>
+</html>
