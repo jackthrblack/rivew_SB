@@ -123,8 +123,15 @@ public class MemberController {
     @PostMapping("update")
     public String update(@ModelAttribute MemberUpdateDTO memberUpdateDTO){
 
-        Long MemberId =  ms.update(memberUpdateDTO);
+        ms.update(memberUpdateDTO);
         return "redirect:/member/"+memberUpdateDTO.getMemberId();
+    }
+
+    @PutMapping("{memberId}")
+    public ResponseEntity update2(@RequestBody MemberUpdateDTO memberUpdateDTO){
+
+        Long memberId = ms.update(memberUpdateDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

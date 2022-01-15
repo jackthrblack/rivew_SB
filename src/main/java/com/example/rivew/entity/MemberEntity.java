@@ -38,10 +38,11 @@ public class MemberEntity {
     public static MemberEntity toUpdateMember(MemberUpdateDTO memberUpdateDTO) {
 
         MemberEntity memberEntity = new MemberEntity();
+
         memberEntity.setId(memberUpdateDTO.getMemberId());
-        memberEntity.setMemberEmail(memberEntity.getMemberEmail());
-        memberEntity.setMemberPassword(memberEntity.getMemberPassword());
-        memberEntity.setMemberName(memberEntity.getMemberName());
+        memberEntity.setMemberEmail(memberUpdateDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberUpdateDTO.getMemberPassword());
+        memberEntity.setMemberName(memberUpdateDTO.getMemberName());
         return memberEntity;
     }
 }
