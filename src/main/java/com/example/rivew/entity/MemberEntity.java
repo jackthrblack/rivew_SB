@@ -1,6 +1,7 @@
 package com.example.rivew.entity;
 
 import com.example.rivew.dto.MemberSaveDTO;
+import com.example.rivew.dto.MemberUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,16 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberSaveDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberSaveDTO.getMemberPassword());
         memberEntity.setMemberName(memberSaveDTO.getMemberName());
+        return memberEntity;
+    }
+
+    public static MemberEntity toUpdateMember(MemberUpdateDTO memberUpdateDTO) {
+
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberUpdateDTO.getMemberId());
+        memberEntity.setMemberEmail(memberEntity.getMemberEmail());
+        memberEntity.setMemberPassword(memberEntity.getMemberPassword());
+        memberEntity.setMemberName(memberEntity.getMemberName());
         return memberEntity;
     }
 }

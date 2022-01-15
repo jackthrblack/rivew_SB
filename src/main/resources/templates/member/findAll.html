@@ -33,7 +33,7 @@
                         "    </tbody>\n" +
                         "</table>";
                     document.getElementById("detail-view").innerHTML = output;
-                } ,
+                },
                 error: function (){
                     alert('ajax 실패');
                 }
@@ -78,12 +78,13 @@
             <td th:text="${member.memberName}" >이름</td>
             <td><a th:href="@{|/member/${member.memberId}|}">조회</a></td>
             <td><button th:onclick="detail([[${member.memberId}]])">조회(아작)</button></td>
-            <td><a th:href="@{|/board/delete/${member.memberId}|}">삭제(겟)</a> </td>
-            <td><input type="button" th:onclick="delete2[[${member.memberId}]]">삭제(아작)</td>
+            <td><a th:href="@{|/member/delete/${member.memberId}|}">삭제(겟)</a> </td>
+            <td><button th:onclick="delete2([[${member.memberId}]])">삭제(아작)</button> </td>
         </tr>
 
     </tbody>
 
 </table>
+<div id="detail-view"></div>
 </body>
 </html>

@@ -19,9 +19,10 @@
     <tbody>
         <tr>
             <td th:text="${member.memberId}">번호</td>
-            <th th:text="${member.memberEmail}">이메일</th>
-            <th th:text="${member.memberPassword}">비밀번호</th>
-            <th th:text="${member.memberName}">이름</th>
+            <td th:text="${member.memberEmail}">이메일</td>
+            <td th:text="${member.memberPassword}">비밀번호</td>
+            <td th:text="${member.memberName}">이름</td>
+            <td><a href="/member/update/">수정</a></td>
         </tr>
     </tbody>
 </table>

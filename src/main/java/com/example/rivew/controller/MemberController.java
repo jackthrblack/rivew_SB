@@ -3,6 +3,7 @@ package com.example.rivew.controller;
 import com.example.rivew.dto.MemberDetailDTO;
 import com.example.rivew.dto.MemberLoginDTO;
 import com.example.rivew.dto.MemberSaveDTO;
+import com.example.rivew.dto.MemberUpdateDTO;
 import com.example.rivew.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -60,16 +61,19 @@ public class MemberController {
     @PostMapping("login")
     public String login(@Validated @ModelAttribute("login") MemberLoginDTO memberLoginDTO, BindingResult bindingResult, HttpSession session){
 
-        boolean loginResult = ms.login(memberLoginDTO);
+
 
         if(bindingResult.hasErrors()){
             return "member/login";
         }
 
+        boolean loginResult = ms.login(memberLoginDTO);
+
         if(loginResult){
-            session.setAttribute(LOGIN_EMAIL,memberLoginDTO.getMemberEmail());
+            session.setAttribute("loginEmail",memberLoginDTO.getMemberEmail());
             return "redirect:/member/";
         }else{
+            bindingResult.reject("loginFail", "이메일 또는 비밀번호가 틀립니다!! 틀리다고!! 틀려!!!");
             return "member/login";
         }
     }
@@ -98,13 +102,29 @@ public class MemberController {
     @GetMapping("delete/{memberId}")
     public String delete(@PathVariable("memberId") Long memberId){
         ms.deleteById(memberId);
-        return "redirect:/board/";
+        return "redirect:/member/";
     }
 
     @DeleteMapping("{memberId}")
     public ResponseEntity delete2(@PathVariable("memberId") Long memberId){
         ms.deleteById(memberId);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("update")
+    public String update_form(Model model, HttpSession session){
+
+        String memberEmail = (String) session.getAttribute(LOGIN_EMAIL);
+        MemberDetailDTO member = ms.findByEmail(memberEmail);
+        model.addAttribute("member",member);
+        return "member/update";
+    }
+
+    @PostMapping("update")
+    public String update(@ModelAttribute MemberUpdateDTO memberUpdateDTO){
+
+        Long MemberId =  ms.update(memberUpdateDTO);
+        return "redirect:/member/"+memberUpdateDTO.getMemberId();
     }
 
 }

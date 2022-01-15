@@ -3,6 +3,7 @@ package com.example.rivew.service;
 import com.example.rivew.dto.MemberDetailDTO;
 import com.example.rivew.dto.MemberLoginDTO;
 import com.example.rivew.dto.MemberSaveDTO;
+import com.example.rivew.dto.MemberUpdateDTO;
 import com.example.rivew.entity.MemberEntity;
 import com.example.rivew.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteById(Long memberId) {
         mr.deleteById(memberId);
+    }
+
+
+
+    @Override
+    public MemberDetailDTO findByEmail(String memberEmail) {
+        MemberEntity memberEntity = mr.findByMemberEmail(memberEmail);
+        MemberDetailDTO memberDetailDTO = MemberDetailDTO.toMemberDetailDTO(memberEntity);
+        return memberDetailDTO;
+    }
+
+    @Override
+    public Long update(MemberUpdateDTO memberUpdateDTO) {
+        MemberEntity memberEntity = MemberEntity.toUpdateMember(memberUpdateDTO);
+
+        return mr.save(memberEntity).getId();
     }
 
 }
