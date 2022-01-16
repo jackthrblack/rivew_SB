@@ -70,7 +70,8 @@ public class MemberController {
         boolean loginResult = ms.login(memberLoginDTO);
 
         if(loginResult){
-            session.setAttribute("loginEmail",memberLoginDTO.getMemberEmail());
+            //session.setAttribute("loginEmail",memberLoginDTO.getMemberEmail());
+           session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());
             return "redirect:/member/";
         }else{
             bindingResult.reject("loginFail", "이메일 또는 비밀번호가 틀립니다!! 틀리다고!! 틀려!!!");
