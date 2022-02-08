@@ -52,11 +52,11 @@ public class MemberController {
         return "index";
     }
 
-    @GetMapping("login")
+    /*@GetMapping("login")
     public String login_form(Model model){
         model.addAttribute("login", new MemberLoginDTO());
         return"member/login";
-    }
+    }*/
 
     @PostMapping("login")
     public String login(@Validated @ModelAttribute("login") MemberLoginDTO memberLoginDTO, BindingResult bindingResult, HttpSession session){
