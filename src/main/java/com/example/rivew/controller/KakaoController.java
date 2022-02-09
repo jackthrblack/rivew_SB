@@ -1,5 +1,7 @@
 package com.example.rivew.controller;
 
+import com.example.rivew.service.KakaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,15 +13,16 @@ import java.util.HashMap;
 @RestController
 public class KakaoController {
 
-    KakaoApi kakaoApi = new KakaoApi();
+   /* @Autowired
+    private KakaoService ks;
 
     @RequestMapping(value="/kakaologin")
     public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         // 1번 인증코드 요청 전달
-        String accessToken = kakaoApi.getAccessToken(code);
+        String accessToken = ks.getAccessToken(code);
         // 2번 인증코드로 토큰 전달
-        HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
+        HashMap<String, Object> userInfo = ks.getUserInfo(accessToken);
 
         System.out.println("login info : " + userInfo.toString());
 
@@ -36,10 +39,10 @@ public class KakaoController {
     public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView();
 
-        kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
+        ks.kakaoLogout((String)session.getAttribute("accessToken"));
         session.removeAttribute("accessToken");
         session.removeAttribute("userId");
         mav.setViewName("index");
         return mav;
-    }
+    }*/
 }
