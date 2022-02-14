@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Service
 public class KaKaoServiceImpl implements KakaoService{
 
-    public String getAccessToken(String code) {
+    public String getAccessToken(String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -32,7 +32,7 @@ public class KaKaoServiceImpl implements KakaoService{
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=49e217f552e2a1352d3462543bc0a458");
             sb.append("&redirect_uri=http://localhost:8096/kakaologin");
-            sb.append("&code="+code);
+            sb.append("&code="+authorize_code);
 
             bw.write(sb.toString());
             bw.flush();
@@ -52,8 +52,8 @@ public class KaKaoServiceImpl implements KakaoService{
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            access_Token = element.getAsJsonObject().get("access_Token").getAsString();
-            refresh_Token = element.getAsJsonObject().get("refresh_Token").getAsString();
+            access_Token = element.getAsJsonObject().get("access_token").getAsString();
+            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 
             System.out.println("access_token : " + access_Token);
             System.out.println("refresh_token : " + refresh_Token);
