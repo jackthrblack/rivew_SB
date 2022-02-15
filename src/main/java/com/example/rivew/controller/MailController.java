@@ -2,6 +2,7 @@ package com.example.rivew.controller;
 
 import com.example.rivew.dto.MailCheckDTO;
 import com.example.rivew.dto.MailDTO;
+import com.example.rivew.dto.MemberDetailDTO;
 import com.example.rivew.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,16 @@ public class MailController {
     }
 
     @PostMapping("/mailSend")
-    public String execMail(MailDTO mailDTO, Model model, MailCheckDTO mailCheckDTO){
-        System.out.println("asdfadsfasdfsadfadsfa");
+    public String execMail(MailDTO mailDTO, Model model, MailCheckDTO mailCheckDTO, MemberDetailDTO memberDetailDTO){
+        System.out.println("bgbg2222222");
         Long email = ms.mailsend(mailDTO, mailCheckDTO);
 
-        model.addAttribute("email", mailCheckDTO);
+        model.addAttribute("check", mailCheckDTO);
+        model.addAttribute("email", mailDTO);
+
+        if(memberDetailDTO.getMemberEmail().equals(mailDTO.getMemberEmail())){
+            model.addAttribute("member", memberDetailDTO);
+        }
         return "/mail/mailcode";
     }
 }

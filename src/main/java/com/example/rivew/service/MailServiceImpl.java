@@ -24,7 +24,7 @@ public class MailServiceImpl implements MailService {
         Random random = new Random(); // 난수 생성
         String key=""; // 인증번호
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailDTO.getAddress());
+        message.setTo(mailDTO.getMemberEmail());
 
         for(int i =0; i<3; i++){
             int index = random.nextInt(25)+65;

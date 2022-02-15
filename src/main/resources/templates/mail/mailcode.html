@@ -5,16 +5,24 @@
     <title>Title</title>
 
     <script>
-    function check(){
+    const check = () => {
+      const code = document.getElementById("code").value;
+      const codeDB = "[[${check.getEmailCheck()}]]";
 
+      if(code==codeDB){
+          document.codeCheck.submit();
+      }else{
+          alert("코드를 다시확인해주세요.")
+      }
     }
     </script>
 </head>
 <body>
-<form>
-    <input type="text" th:value="${email.getEmailCheck()}">
+<form action="/member/update" method="get" name="codeCheck">
+    <input type="hidden" id="checkCode" th:value="${check.getEmailCheck()}">
+    <input type="hidden" id="emailCode" th:value="${email.getMemberEmail()}">
     <input id="code" type="text" placeholder="이메일인증코드를 입력하세요">
-    <input type="button" onclick="check()">
+    <input type="button" onclick="check()" value="제출">
 </form>
 </body>
 </html>
