@@ -1,20 +1,23 @@
 package com.example.rivew.service;
 
+import com.example.rivew.entity.KakaoEntity;
+import com.example.rivew.repository.KakaoRepository;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
 @Service
+@RequiredArgsConstructor
 public class KaKaoServiceImpl implements KakaoService{
+
+    private final KakaoRepository kr;
 
     public String getAccessToken(String authorize_code) {
         String access_Token = "";
@@ -67,7 +70,7 @@ public class KaKaoServiceImpl implements KakaoService{
     }
 
 
-    public HashMap<String, Object> getUserInfo(String accessToken) {
+    /*public KaKaoDTO getUserInfo(String accessToken) {
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqUrl = "https://kapi.kakao.com/v2/user/me";
         try {
@@ -105,7 +108,7 @@ public class KaKaoServiceImpl implements KakaoService{
             e.printStackTrace();
         }
         return userInfo;
-    }
+    }*/
 
 
     public void kakaoLogout(String accessToken) {
@@ -130,5 +133,46 @@ public class KaKaoServiceImpl implements KakaoService{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Long getUserInfo(String access_Token) {
+
+        HashMap<String, Object> userInfo = new HashMap<String, Object>();
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body1 : " + result);
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            userInfo.put("nickname", nickname);
+            userInfo.put("email", email);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("asdfsdf="+userInfo.get("email"));
+        System.out.println("asdfsdf="+userInfo.get("nickname"));
+
+
+        KakaoEntity kakaoEntity = KakaoEntity.saveKakao(userInfo);
+
+        // KakaoEntity kakaoEntity = KakaoEntity.saveKakao(userInfo,kakaoDTO);
+
+        return kr.save(kakaoEntity).getId();
     }
 }
