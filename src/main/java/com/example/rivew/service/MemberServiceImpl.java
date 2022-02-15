@@ -31,20 +31,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean login(MemberLoginDTO memberLoginDTO) {
-        MemberEntity memberEntity = mr.findByMemberEmail(memberLoginDTO.getMemberEmail());
-        if (memberEntity != null) {
-            if (memberEntity.getMemberPassword().equals(memberLoginDTO.getMemberPassword())) {
-                return true;
-            } else {
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
-
-    @Override
     public List<MemberDetailDTO> findAll() {
 
         List<MemberEntity> memberEntityList = mr.findAll();
@@ -85,5 +71,27 @@ public class MemberServiceImpl implements MemberService {
 
         return mr.save(memberEntity).getId();
     }
+
+    @Override
+    public boolean login(MemberLoginDTO memberLoginDTO) {
+        MemberEntity memberEntity = mr.findByMemberEmail(memberLoginDTO.getMemberEmail());
+        if(memberEntity != null){
+            if (memberEntity.getMemberPassword().equals(memberLoginDTO.getMemberPassword())){
+                return true;
+            }else {
+                return false;
+            }}
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public Long findByMemberId(String memberEmail) {
+        MemberEntity memberEntity = mr.findByMemberEmail(memberEmail);
+        Long memberId = memberEntity.getId();
+        return memberId;
+    }
+
 
 }

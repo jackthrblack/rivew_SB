@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 public class MainController {
@@ -17,7 +18,7 @@ public class MainController {
         return "index";
     }
 
-    @Autowired
+  /*  @Autowired
     private KakaoService ks;
 
     @GetMapping("/kakaologin")
@@ -25,17 +26,15 @@ public class MainController {
         System.out.println("#########" + code);
         String access_Token = ks.getAccessToken(code);
         // 2번 인증코드로 토큰 전달
-         Long userInfo = ks.getUserInfo(access_Token);
+        HashMap<String, Object> userInfo = ks.getUserInfo(access_Token);
 
         System.out.println("login info : " + userInfo.toString());
 
-        session.invalidate();
-        // 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+        if(userInfo.get("email") != null) {
+            session.setAttribute("userId", userInfo.get("email"));
+            session.setAttribute("accessToken", access_Token);
+        }
 
-        // 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
-        // jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-
-        // 리턴값은 용도에 맞게 변경하세요~
         return "index";
     }
 
@@ -48,5 +47,5 @@ public class MainController {
         session.removeAttribute("userId");
         mav.setViewName("index");
         return mav;
-    }
+    }*/
 }

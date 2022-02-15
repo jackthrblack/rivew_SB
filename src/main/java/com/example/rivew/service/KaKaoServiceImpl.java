@@ -136,7 +136,7 @@ public class KaKaoServiceImpl implements KakaoService{
     }
 
     @Override
-    public Long getUserInfo(String access_Token) {
+    public HashMap<String, Object> getUserInfo(String access_Token) {
 
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -173,6 +173,7 @@ public class KaKaoServiceImpl implements KakaoService{
 
         // KakaoEntity kakaoEntity = KakaoEntity.saveKakao(userInfo,kakaoDTO);
 
-        return kr.save(kakaoEntity).getId();
+         kr.save(kakaoEntity);
+        return userInfo;
     }
 }

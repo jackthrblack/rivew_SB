@@ -10,8 +10,6 @@ import java.util.List;
 public interface MemberService {
     Long save(MemberSaveDTO memberSaveDTO);
 
-    boolean login(MemberLoginDTO memberLoginDTO);
-
     List<MemberDetailDTO> findAll();
 
     MemberDetailDTO findById(Long memberId);
@@ -21,4 +19,8 @@ public interface MemberService {
     MemberDetailDTO findByEmail(String memberEmail);
 
     Long update(MemberUpdateDTO memberUpdateDTO);
+
+    boolean login(MemberLoginDTO memberLoginDTO);
+
+    Long findByMemberId(String memberEmail);
 }

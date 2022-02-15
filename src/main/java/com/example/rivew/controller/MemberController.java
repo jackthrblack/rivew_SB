@@ -52,31 +52,25 @@ public class MemberController {
         return "index";
     }
 
-    /*@GetMapping("login")
+    @GetMapping("login")
     public String login_form(Model model){
         model.addAttribute("login", new MemberLoginDTO());
         return"member/login";
-    }*/
+    }
 
     @PostMapping("login")
     public String login(@Validated @ModelAttribute("login") MemberLoginDTO memberLoginDTO, BindingResult bindingResult, HttpSession session){
-
-
-
-        if(bindingResult.hasErrors()){
-            return "member/login";
-        }
-
         boolean loginResult = ms.login(memberLoginDTO);
 
-        if(loginResult){
-            //session.setAttribute("loginEmail",memberLoginDTO.getMemberEmail());
-           session.setAttribute(LOGIN_EMAIL, memberLoginDTO.getMemberEmail());
-            return "redirect:/member/";
-        }else{
-            bindingResult.reject("loginFail", "이메일 또는 비밀번호가 틀립니다!! 틀리다고!! 틀려!!!");
-            return "member/login";
-        }
+       if(loginResult){
+           session.setAttribute(LOGIN_EMAIL,memberLoginDTO.getMemberEmail());
+           Long loginId = ms.findByMemberId(memberLoginDTO.getMemberEmail());
+           session.setAttribute("loginId",loginId);
+           System.out.println(loginId);
+           return "index";
+       }else{
+           return "/member/login";
+       }
     }
 
     @GetMapping

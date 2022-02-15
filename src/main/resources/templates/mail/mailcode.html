@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+    function check(){
+
+    }
+    </script>
+</head>
+<body>
+<form>
+    <input type="text" th:value="${email.getEmailCheck()}">
+    <input id="code" type="text" placeholder="이메일인증코드를 입력하세요">
+    <input type="button" onclick="check()">
+</form>
+</body>
+</html>
