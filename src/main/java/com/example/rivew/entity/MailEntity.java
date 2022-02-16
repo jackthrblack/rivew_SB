@@ -20,6 +20,10 @@ public class MailEntity {
     @Column
     private String emailCheck;
 
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private MemberEntity memberEntity;
+
     public static MailEntity saveMailCode(MailCheckDTO mailCheckDTO) {
         MailEntity mailEntity = new MailEntity();
         mailEntity.setEmailCheck(mailCheckDTO.getEmailCheck());

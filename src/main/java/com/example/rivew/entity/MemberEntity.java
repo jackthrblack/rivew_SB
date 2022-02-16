@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,6 +28,9 @@ public class MemberEntity {
 
     @Column
     private String memberName;
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.PERSIST, orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<MailEntity> mailEntityList = new ArrayList<>();
 
     public static MemberEntity saveMember(MemberSaveDTO memberSaveDTO){
         MemberEntity memberEntity = new MemberEntity();

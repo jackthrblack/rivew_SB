@@ -1,5 +1,7 @@
 package com.example.rivew.service;
 
+import com.example.rivew.dto.KakaoDTO;
+import com.example.rivew.dto.KakaoDetailDTO;
 import com.example.rivew.entity.KakaoEntity;
 import com.example.rivew.repository.KakaoRepository;
 import com.google.gson.JsonElement;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -67,6 +71,17 @@ public class KaKaoServiceImpl implements KakaoService{
             e.printStackTrace();
         }
         return access_Token;
+    }
+
+    @Override
+    public List<KakaoDetailDTO> findAll() {
+
+        List<KakaoEntity> kakaoEntityList = kr.findAll();
+        List<KakaoDetailDTO> kakaList = new ArrayList<>();
+        for(KakaoEntity k: kakaoEntityList){
+            kakaList.add(KakaoDetailDTO.toKakaoDetailDTO(k));
+        }
+        return kakaList;
     }
 
 
@@ -136,7 +151,7 @@ public class KaKaoServiceImpl implements KakaoService{
     }
 
     @Override
-    public HashMap<String, Object> getUserInfo(String access_Token) {
+    public HashMap<String, Object> getUserInfo(String access_Token, KakaoDTO kakaoDTO) {
 
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -167,6 +182,7 @@ public class KaKaoServiceImpl implements KakaoService{
         }
         System.out.println("asdfsdf="+userInfo.get("email"));
         System.out.println("asdfsdf="+userInfo.get("nickname"));
+
 
 
         KakaoEntity kakaoEntity = KakaoEntity.saveKakao(userInfo);

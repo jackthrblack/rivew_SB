@@ -19,8 +19,10 @@
 </head>
 <body>
 <form action="/member/update" method="get" name="codeCheck">
-    <input type="hidden" id="checkCode" th:value="${check.getEmailCheck()}">
+    <input type="text" id="checkCode" th:value="${check.getEmailCheck()}">
     <input type="hidden" id="emailCode" th:value="${email.getMemberEmail()}">
+    <input type="text" th:value="${member.memberEmail}">
+    <input type="text" name="memberId" th:value="${session['memberId']}">
     <input id="code" type="text" placeholder="이메일인증코드를 입력하세요">
     <input type="button" onclick="check()" value="제출">
 </form>
