@@ -34,7 +34,7 @@ public class MemberController {
     }
 
     @PostMapping("save")
-    public String save(@Validated @ModelAttribute("member") MemberSaveDTO memberSaveDTO, BindingResult bindingResult){
+    public String save(HttpSession session,@Validated @ModelAttribute("member") MemberSaveDTO memberSaveDTO, MemberDetailDTO memberDetailDTO, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "member/save";
@@ -42,6 +42,7 @@ public class MemberController {
 
         try{
             Long memberId=ms.save(memberSaveDTO);
+
         } catch (IllegalStateException e){
             // e.getMessage()에는 서비스에서 지정한 예외메시지가 담겨있음
             bindingResult.reject("emailCheck", e.getMessage());
@@ -109,8 +110,7 @@ public class MemberController {
     @GetMapping("update")
     public String update_form(Model model, HttpSession session){
 
-        String memberEmail = (String) session.getAttribute(LOGIN_EMAIL);
-        MemberDetailDTO member = ms.findByEmail(memberEmail);
+        MemberDetailDTO member = ms.findById((Long) session.getAttribute("memberId"));
         model.addAttribute("member",member);
         return "member/update";
     }

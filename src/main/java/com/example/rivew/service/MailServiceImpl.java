@@ -39,8 +39,10 @@ public class MailServiceImpl implements MailService {
         /*message.setSubject(mailDTO.getTitle());
         message.setText(mailDTO.getMessage());*/
         javaMailSender.send(message);
+
         mailCheckDTO.setEmailCheck(key);
         MailEntity mailEntity = MailEntity.saveMailCode(mailCheckDTO);
+
         return mr.save(mailEntity).getId();
        // return key;
     }

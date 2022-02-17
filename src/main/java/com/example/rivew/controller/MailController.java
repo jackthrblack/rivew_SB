@@ -32,17 +32,18 @@ public class MailController {
     @PostMapping("/mailSend")
     public String execMail(HttpSession session, MailDTO mailDTO, Model model, MailCheckDTO mailCheckDTO, MemberDetailDTO memberDetailDTO){
         System.out.println("bgbg2222222");
-        Long email = mas.mailsend(mailDTO, mailCheckDTO);
+        MemberDetailDTO Id = ms.findByEmail(memberDetailDTO.getMemberEmail());
+        Long Id2 = Id.getMemberId();
+        session.setAttribute("memberId", Id2);
+        if(mailDTO.getMemberEmail().equals(memberDetailDTO.getMemberEmail())) {
+            Long email = mas.mailsend(mailDTO, mailCheckDTO);
 
-        model.addAttribute("check", mailCheckDTO);
-        model.addAttribute("email", mailDTO);
-
-        System.out.println(memberDetailDTO.toString());
-        if(memberDetailDTO.getMemberEmail().equals(mailDTO.getMemberEmail())){
-            Long Id=ms.findByMemberId(memberDetailDTO.getMemberEmail());
-            session.setAttribute("memberId", Id);
+            model.addAttribute("check", mailCheckDTO);
+            model.addAttribute("email", mailDTO);
             model.addAttribute("member", memberDetailDTO);
         }
+        System.out.println(memberDetailDTO.toString());
+
         return "/mail/mailcode";
     }
 }
