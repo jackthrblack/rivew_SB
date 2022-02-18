@@ -3,12 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function pwMail(){
 
+            const mail = document.getElementById("memberEmail").value;
+
+            $.ajax({
+                type: 'post',
+                url: '/mail/pwMailCheck',
+                data: {"memberEmail":mail},
+                dataType: 'text',
+                success: function (result){
+                    if(result=='ok'){
+
+                    }else{
+                        alert("이메일을 다시 확인해주세요.")
+                    }
+                },
+                error: function (){
+                    console.log("다시 확인해주세요.")
+                }
+            });
+        }
+    </script>
 
 </head>
 <body>
 <form action="/mail/mailSend" method="post">
-    <input name="memberEmail" id="memberId" placeholder="이메일 주소"><br>
+    <input name="memberEmail" id="memberEmail" th:onblur="pwMail()" placeholder="이메일 주소"><br>
     <!--<input name="title" placeholder="제목"><br>-->
     <!--<textarea name="message" placeholder="메일 내용을 입력해주세요." cols="60" rows="20"></textarea>-->
     <input type="submit"  value="발송">

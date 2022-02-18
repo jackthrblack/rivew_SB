@@ -18,7 +18,7 @@ public class MailServiceImpl implements MailService {
     private final MailRepository mr;
 
     private JavaMailSender javaMailSender;
-    private static final String FROM_ADDRESS = "이메일에 보낼 주소";
+   // private static final String FROM_ADDRESS = "이메일에 보낼 주소";
 
     public Long mailsend(MailDTO mailDTO, MailCheckDTO mailCheckDTO){
         Random random = new Random(); // 난수 생성

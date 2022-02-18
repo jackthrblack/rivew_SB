@@ -110,8 +110,17 @@ public class MemberController {
     @GetMapping("update")
     public String update_form(Model model, HttpSession session){
 
-        MemberDetailDTO member = ms.findById((Long) session.getAttribute("memberId"));
-        model.addAttribute("member",member);
+        String memberEmail = (String) session.getAttribute(LOGIN_EMAIL);
+        if(memberEmail != null){
+            System.out.println("bbfdsbdsfb="+memberEmail);
+            MemberDetailDTO member = ms.findByEmail(memberEmail);
+            model.addAttribute("member",member);
+        }else if(memberEmail == null){
+            MemberDetailDTO member = ms.findById((Long) session.getAttribute("memberId"));
+            model.addAttribute("member",member);
+
+            System.out.println("asdfadsf!!!@!@!@!@");
+        }
         return "member/update";
     }
 
@@ -129,4 +138,9 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
 }

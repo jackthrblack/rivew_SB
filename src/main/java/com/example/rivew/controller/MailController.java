@@ -8,9 +8,7 @@ import com.example.rivew.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,6 +25,14 @@ public class MailController {
     public String dispMail(){
         System.out.println("bgbg2222222");
         return "/mail/mailSend";
+    }
+
+    @PostMapping("/pwMailCheck")
+    public @ResponseBody
+    String pwMailCheck(@RequestParam("memberEmail") String memberEmail){
+
+        String result = ms.pwMailChekc(memberEmail);
+        return result;
     }
 
     @PostMapping("/mailSend")
@@ -46,4 +52,6 @@ public class MailController {
 
         return "/mail/mailcode";
     }
+
+
 }

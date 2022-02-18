@@ -23,4 +23,6 @@ public interface MemberService {
     boolean login(MemberLoginDTO memberLoginDTO);
 
     Long findByMemberId(String memberEmail);
+
+    String pwMailChekc(String memberEmail);
 }

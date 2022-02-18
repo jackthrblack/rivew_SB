@@ -93,5 +93,18 @@ public class MemberServiceImpl implements MemberService {
         return memberId;
     }
 
+    @Override
+    public String pwMailChekc(String memberEmail) {
+
+        MemberEntity pwMailCheck = mr.findByMemberEmail(memberEmail);
+
+        if(pwMailCheck != null){
+            return "ok";
+        }else{
+            return "no";
+        }
+
+    }
+
 
 }
