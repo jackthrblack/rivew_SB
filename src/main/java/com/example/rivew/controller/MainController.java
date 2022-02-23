@@ -1,14 +1,7 @@
 package com.example.rivew.controller;
 
-import com.example.rivew.dto.KakaoDTO;
-import com.example.rivew.service.KakaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 
 @Controller
 public class MainController {

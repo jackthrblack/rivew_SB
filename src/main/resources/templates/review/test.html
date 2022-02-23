@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>이ㅣ히히히히</h1>
+<h1>평균</h1>
+<input th:value="${session['avg']}">
+<table>
+    <tr th:each="review:${review}">
+        <td th:text="${review.getMemberId()}"></td>
+        <td th:text="${review.getReviewId()}"></td>
+        <td th:text="${review.getReviewTitle()}"></td>
+        <td th:text="${review.getReviewWriter()}"></td>
+        <td th:text="${review.getReviewContents()}"></td>
+        <td th:text="${review.getReviewStar()}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

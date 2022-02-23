@@ -40,14 +40,16 @@ public class MailController {
         System.out.println("bgbg2222222");
         MemberDetailDTO Id = ms.findByEmail(memberDetailDTO.getMemberEmail());
         Long Id2 = Id.getMemberId();
+        System.out.println(Id.toString());
         session.setAttribute("memberId", Id2);
-        if(mailDTO.getMemberEmail().equals(memberDetailDTO.getMemberEmail())) {
+
+        System.out.println("asdfasdfasdfdsfgrebfdewf"+Id2);
             Long email = mas.mailsend(mailDTO, mailCheckDTO);
 
             model.addAttribute("check", mailCheckDTO);
             model.addAttribute("email", mailDTO);
             model.addAttribute("member", memberDetailDTO);
-        }
+
         System.out.println(memberDetailDTO.toString());
 
         return "/mail/mailcode";

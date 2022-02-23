@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.lang.reflect.Member;
 
 @Entity
 @Getter
@@ -23,6 +24,8 @@ public class MailEntity {
     @ManyToOne
     @JoinColumn(name = "memberId")
     private MemberEntity memberEntity;
+
+
 
     public static MailEntity saveMailCode(MailCheckDTO mailCheckDTO) {
         MailEntity mailEntity = new MailEntity();

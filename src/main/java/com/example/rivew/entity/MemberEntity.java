@@ -32,6 +32,9 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.PERSIST, orphanRemoval = false,fetch = FetchType.LAZY)
     private List<MailEntity> mailEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "memberEntity", cascade = CascadeType.PERSIST, orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<ReviewEntity> reviewEntityList = new ArrayList<>();
+
     public static MemberEntity saveMember(MemberSaveDTO memberSaveDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberSaveDTO.getMemberEmail());

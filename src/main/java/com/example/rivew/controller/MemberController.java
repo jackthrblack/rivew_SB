@@ -50,7 +50,7 @@ public class MemberController {
         }
 
 
-        return "index";
+        return "index3";
     }
 
     @GetMapping("login")
@@ -68,7 +68,7 @@ public class MemberController {
            Long loginId = ms.findByMemberId(memberLoginDTO.getMemberEmail());
            session.setAttribute("loginId",loginId);
            System.out.println(loginId);
-           return "index";
+           return "index3";
        }else{
            return "/member/login";
        }
@@ -141,6 +141,6 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "index";
+        return "index3";
     }
 }
